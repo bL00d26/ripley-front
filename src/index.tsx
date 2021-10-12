@@ -5,10 +5,13 @@ import "./application/assets/general.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import { HomePage } from "./presentation/containers/home-page/HomePage";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <HomePage />
+    <BrowserRouter>
+      <HomePage />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

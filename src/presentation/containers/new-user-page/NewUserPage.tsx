@@ -1,48 +1,24 @@
-import React, { FormEvent, useState } from "react";
-import { createNewUser } from "../../../infraestructure/api/user.actions";
-import { NewUserDto } from "../../../infraestructure/dtos/new-user.dto";
+import { useState } from "react";
+import Grid from "@material-ui/core/Grid";
+
+import { newUserPageStyles } from "./new-user-page.styles";
+import { NewUserForm } from "../../components/new-user-form/NewUserForm";
+import { UserCard } from "../../components/user-card/UserCard";
 import { User } from "../../../infraestructure/interfaces/user.interface";
 
 export const NewUserPage = () => {
-  const [newUser, setNewUser] = useState<User | null>(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [birthday, setBirthday] = useState("");
-
-  const handleCreateNewUser = async (e: FormEvent) => {
-    e.preventDefault();
-    const newUserDto: NewUserDto = {
-      firstName,
-      lastName,
-      birthday,
-    };
-    const user = await createNewUser(newUserDto);
-    if (user) setNewUser(user);
-  };
-
+  const classes = newUserPageStyles();
+  const [user, setUser] = useState<User | null>(null);
   return (
-    <div>
-      <form onSubmit={handleCreateNewUser}>
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Apellido"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <input
-          type="date"
-          placeholder="Edad"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-        />
-        <button type="submit">Crear</button>
-      </form>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <NewUserForm setUser={setUser} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          {user && <UserCard user={user} />}
+        </Grid>
+      </Grid>
     </div>
   );
 };

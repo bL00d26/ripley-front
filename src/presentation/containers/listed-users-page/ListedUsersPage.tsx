@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { loadUsers } from "../../../infraestructure/api/user.actions";
-import { User } from "../../../infraestructure/interfaces/user.interface";
+import React from "react";
+import Grid from "@material-ui/core/Grid";
 
+import { listedUsersPageStyles } from "./listed-users-page.styles";
+import UsersTable from "../../components/users-table/UsersTable";
 export const ListedUsersPage = () => {
-  const [users, setUsers] = useState([] as User[]);
-  const getAllUsers = async () => {
-    const users: User[] = await loadUsers();
-    if (users.length < 0) setUsers([]);
-    setUsers(users);
-  };
-  useEffect(() => {
-    getAllUsers();
-  }, []);
+  const classes = listedUsersPageStyles();
+
   return (
-    <div>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>{user.firstName}</li>
-        ))}
-      </ul>
+    <div className={classes.root}>
+      <Grid container direction="row" alignItems="center">
+        <Grid item xs={12} sm={12}>
+          <UsersTable />
+        </Grid>
+      </Grid>
     </div>
   );
 };

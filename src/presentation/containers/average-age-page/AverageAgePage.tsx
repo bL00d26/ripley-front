@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { getUsersAverageAge } from "../../../infraestructure/api/user.actions";
+import Grid from "@material-ui/core/Grid";
+
+import { AverageCard } from "../../components/average-card/AverageCard";
+import { averageAgePageStyles } from "./average-age-page.styles";
 
 export const AverageAgePage = () => {
-  const [averageAge, setAverageAge] = useState(0);
-  const getAverageAge = async () => {
-    const ageProm = await getUsersAverageAge();
-    if (isNaN(ageProm)) setAverageAge(0);
-    setAverageAge(ageProm);
-  };
-  useEffect(() => {
-    getAverageAge();
-  }, []);
+  const classes = averageAgePageStyles();
+
   return (
-    <div>
-      <span>{averageAge}</span>
+    <div className={classes.root}>
+      <Grid container direction="row" alignItems="center">
+        <Grid item xs={12} sm={12}>
+          <AverageCard />
+        </Grid>
+      </Grid>
     </div>
   );
 };
