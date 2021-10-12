@@ -9,7 +9,7 @@ import { Routes } from "../../../application/utils/routes";
 import { centeredTabStyles } from "./centered-tabs.style";
 
 const CenteredTabs = () => {
-  const [selection, setSelection] = useState("");
+  const [selection, setSelection] = useState(Routes.DASHBOARD);
   const classes = centeredTabStyles();
   const history = useHistory();
   const handleSelection = (e: MouseEvent, selection: string) => {
